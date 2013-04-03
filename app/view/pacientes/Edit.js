@@ -27,6 +27,13 @@ Ext.define('ShSolutions.view.pacientes.Edit', {
                     method: 'POST',
                     url : 'server/modulos/pacientes/save.php',
                     items: [
+                    	{
+							xtype: 'textfield',
+							name: 'codigo_sus',
+							id: 'codigo_sus_pacientes',
+							anchor: '100%',
+							fieldLabel: 'Codigo SUS'
+						},
 						{
 							xtype: 'fieldcontainer',
 							autoHeight: true,

@@ -26,6 +26,13 @@ Ext.define('ShSolutions.view.pacientes.Filtro', {
                     autoScroll: true,
                     items: [
 						{
+							xtype: 'textfield',
+							name: 'codigo_sus',
+							id: 'codigo_sus_filter_pacientes',
+							anchor: '100%',
+							fieldLabel: 'Codigo SUS'
+						},
+						{
 							xtype: 'fieldcontainer',
 							autoHeight: true,
 							layout: {

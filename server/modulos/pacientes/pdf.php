@@ -15,6 +15,7 @@ if($_GET){
 		
 		if(isset($_GET['action']) AND $_GET['action'] == 'FILTER'){
 				$buscar->setBusca(array('data_cadastro', 'pacientes.data_cadastro'), implode('-', array_reverse(explode('/', $_GET['data_cadastro_date']))), 'like');
+				$buscar->setBusca(array('codigo_sus', 'pacientes.codigo_sus'), $_GET['codigo_sus'], 'like');
 				$buscar->setBusca(array('paciente', 'pacientes.paciente'), $_GET['paciente'], 'like');
 				$buscar->setBusca(array('data_nascimento', 'pacientes.data_nascimento'), implode('-', array_reverse(explode('/', $_GET['data_nascimento']))), 'like');
 				$buscar->setBusca(array('sexo', 'pacientes.sexo'), $_GET['sexo'], 'like');
@@ -57,7 +58,7 @@ if($_GET){
 		$query = $pdo->fetchAll(PDO::FETCH_OBJ);
 		
 		class pdf extends FPDF_EXTENDED {
-			public $width = 39.42;
+			public $width = 34.50;
 			public $total = 276;
 			public $orientation = 'P';
 			public $totalLine = 2;
@@ -92,6 +93,7 @@ if($_GET){
 					$this->Cell($this->total,6, "Filtros Ultilizados:",'B',1,'C');
 					$this->Ln(4);
 					$this->getCampo($_GET['data_cadastro_date'], "Data Cadastro");
+					$this->getCampo($_GET['paciente'], utf8_decode("Codigo SUS"));
 					$this->getCampo($_GET['paciente'], utf8_decode("Paciente"));
 					$this->getCampo($_GET['data_nascimento'], "Data Nascimento");
 					$this->getCampo($_GET['sexo'], utf8_decode("Sexo"));
@@ -141,6 +143,7 @@ if($_GET){
 		
 		//cabeçalho..
 		$col = array();
+		$col[] = array('text' => utf8_decode('Codigo SUS'), 'width' => $pdf->width, 'height' => '5', 'align' => 'C', 'font_name' => 'Arial', 'font_size' => '8', 'font_style' => 'B', 'fillcolor' => $pdf->fillCollor, 'textcolor' => $pdf->textCollor, 'drawcolor' => '0,0,0', 'linewidth' => '0.4', 'linearea' => 'LTBR');
 		$col[] = array('text' => utf8_decode('Paciente'), 'width' => $pdf->width, 'height' => '5', 'align' => 'C', 'font_name' => 'Arial', 'font_size' => '8', 'font_style' => 'B', 'fillcolor' => $pdf->fillCollor, 'textcolor' => $pdf->textCollor, 'drawcolor' => '0,0,0', 'linewidth' => '0.4', 'linearea' => 'LTBR');
 		$col[] = array('text' => utf8_decode('Tipo Sanguineo'), 'width' => $pdf->width, 'height' => '5', 'align' => 'C', 'font_name' => 'Arial', 'font_size' => '8', 'font_style' => 'B', 'fillcolor' => $pdf->fillCollor, 'textcolor' => $pdf->textCollor, 'drawcolor' => '0,0,0', 'linewidth' => '0.4', 'linearea' => 'LTBR');
 		$col[] = array('text' => utf8_decode('Cpf'), 'width' => $pdf->width, 'height' => '5', 'align' => 'C', 'font_name' => 'Arial', 'font_size' => '8', 'font_style' => 'B', 'fillcolor' => $pdf->fillCollor, 'textcolor' => $pdf->textCollor, 'drawcolor' => '0,0,0', 'linewidth' => '0.4', 'linearea' => 'LTBR');
@@ -153,6 +156,7 @@ if($_GET){
 		
 		foreach($query as $row){
 			$col = array();
+			$col[] = array('text' => utf8_decode($row->codigo_sus), 'width' => $pdf->width, 'height' => '5', 'align' => 'C', 'font_name' => 'Arial', 'font_size' => '8', 'font_style' => '', 'fillcolor' => $pdf->fillCollor, 'textcolor' => $pdf->textCollor, 'drawcolor' => '0,0,0', 'linewidth' => '0.4', 'linearea' => 'LTBR');
 			$col[] = array('text' => utf8_decode($row->paciente), 'width' => $pdf->width, 'height' => '5', 'align' => 'C', 'font_name' => 'Arial', 'font_size' => '8', 'font_style' => '', 'fillcolor' => $pdf->fillCollor, 'textcolor' => $pdf->textCollor, 'drawcolor' => '0,0,0', 'linewidth' => '0.4', 'linearea' => 'LTBR');
 			$col[] = array('text' => utf8_decode($row->tipo_sanguineo), 'width' => $pdf->width, 'height' => '5', 'align' => 'C', 'font_name' => 'Arial', 'font_size' => '8', 'font_style' => '', 'fillcolor' => $pdf->fillCollor, 'textcolor' => $pdf->textCollor, 'drawcolor' => '0,0,0', 'linewidth' => '0.4', 'linearea' => 'LTBR');
 			$col[] = array('text' => @mascara('###.###.###-##', $row->cpf), 'width' => $pdf->width, 'height' => '5', 'align' => 'C', 'font_name' => 'Arial', 'font_size' => '8', 'font_style' => '', 'fillcolor' => $pdf->fillCollor, 'textcolor' => $pdf->textCollor, 'drawcolor' => '0,0,0', 'linewidth' => '0.4', 'linearea' => 'LTBR');

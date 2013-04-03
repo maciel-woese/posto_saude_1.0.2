@@ -40,6 +40,13 @@ Ext.define('ShSolutions.view.pacientes.List', {
 					width: 140
 				},
 				{
+					xtype: 'numbercolumn',
+					dataIndex: 'codigo_sus',
+					format: '0',
+					text: 'Codigo SUS',					
+					width: 140
+				},
+				{
 					xtype: 'datecolumn',
 					dataIndex: 'data_cadastro',
 					format: 'd/m/Y H:i:s',

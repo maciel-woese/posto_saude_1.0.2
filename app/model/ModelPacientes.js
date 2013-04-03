@@ -10,6 +10,10 @@ Ext.define('ShSolutions.model.ModelPacientes', {
 		{
 			name: 'id',								 
 			type: 'int'
+		},
+		{
+			name: 'codigo_sus',
+			type: 'int'
 		},				
 		{
 			name: 'data_cadastro_time',			
