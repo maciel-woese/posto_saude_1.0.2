@@ -134,7 +134,7 @@
 			catch(PDOException $e){
 				return json_encode(array(
 					'success'	=> false,
-					'msg'		=> $e->getMessage()
+					'msg'		=> utf8_encode($e->getMessage())
 				));
 			}
 		}
@@ -151,7 +151,7 @@
 		
 		public function getAcao($tabela, $action){
 			$sessao = unserialize($_SESSION['SESSION_USUARIO']);
-			if($sessao['administrador']==true){
+			if($sessao['administrador']==false){
 				$models = unserialize($_SESSION['MODEL_PERMISSOES']);
 				$res = false;
 				if(isset($models[$tabela])){

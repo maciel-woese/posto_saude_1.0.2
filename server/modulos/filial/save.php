@@ -8,7 +8,6 @@ if($_POST){
 	require('../../autoLoad.php');
 	$tabela = 'filial';
 	try {
-		
 		if(($user->filial_id_admin!=1) and ($user->administrador!=true)){
 			die(json_encode(array(
 				'success'	=> false,

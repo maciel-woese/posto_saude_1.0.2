@@ -7,7 +7,7 @@ class Connection extends PDO
 {
 	private $dsn = 'mysql:dbname=posto_saude;host=127.0.0.1';
 	private $user = 'root';
-	private $password = '';
+	private $password = 'admin';
 
 	public static $handle = null;
 
@@ -27,7 +27,7 @@ class Connection extends PDO
 		}
 		catch(PDOException $e)
 		{
-			echo '{ success: false, msg: '.$e->getMessage().' }';
+			echo '{ success: false, msg: "'.$e->getMessage().'" }';
 			return false;
 		}
 	}
